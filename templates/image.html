@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h2 align="center">Malaysian Stock Market Sentiments</h2>
+    
+    <br><br><br>
+    <form class="form-inline my-2 my-lg-0"  method="POST" action="">
+        {{ form.csrf_token() }}
+        <label for=""> {{ form.stock.label }}</label>
+        {{ form.stock }}
+        {{ form.submit(class="btn-primary")}}
+    </form>
+
+    <div id="messages" style="font-size: 20px; color: red; font-weight: bold; ">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>  
+
+    <br><br><br>
+    <div id= "sentiment_stock">
+    <table id="table" class="table table-striped" border="1">
+    <thead>
+        <tr>
+            <th>Stock</th> 
+            <th>Graph</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{query}}</td>
+            </td>
+            <td> <img src="data:image/png;base64, {{ plot_url }}" ></td>
+        </tr>
+       
+    </tbody>
+    </table>
+    </div>
+</div>
+</div>
+{%endblock%}
